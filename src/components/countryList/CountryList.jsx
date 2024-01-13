@@ -3,19 +3,17 @@ import Spinner from "../Spinner";
 
 import Message from "../Message";
 import CountryItem from "../countryItem/CountryItem";
-export default function CountryList({ cities, isLoading }) {
+import { useCity } from "../../contexts/CityContext _combineReducer";
+// import { useCity } from "../../contexts/CityContext";
+
+export default function CountryList() {
+  const { cities, isLoading, countries } = useCity();
+
   if (isLoading) return <Spinner />;
   if (!cities.length)
     return (
       <Message message="Add your first city by clicking on thr city on the map" />
     );
-
-  // const countries = cities.reduce((acc,cur)=>if() ,[])
-  const countries = cities.reduce((arr, city) => {
-    if (!arr.map((el) => el.country).includes(city.country))
-      return [...arr, { country: city.country, emoji: city.emoji }];
-    else return arr;
-  }, []);
 
   return (
     <ul className={styles.countryList}>
